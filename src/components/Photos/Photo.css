@@ -1,0 +1,110 @@
+.back-to-albums{
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    display: block;
+    text-decoration: none;
+    margin: 10px 50px;
+}
+
+.photo-list{
+    width: 100%;
+    display: inline-grid;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: start;
+}
+
+.photo{
+    width: 200px;
+    height: 230px;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+}
+
+.photo img{
+    width: 150px;
+    margin: 0 25px;
+    cursor: pointer;
+}
+
+.shadow{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.shadow--hide{
+    display: none;
+}
+
+.shadow--show{
+    display: block;
+}
+
+.closePopUp{
+    color: #fff;
+    font-size: 250%;
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    cursor: pointer;
+}
+
+.first-part-cross{
+    margin: -1px;
+    transform: rotate(-45deg);
+}
+
+.popUp{
+
+    height: 80%;
+    background: #fff;
+    border-radius: 10px;
+width: min-content;
+    top: 10%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.popUp img{
+    background: #eee;
+}
+@media (max-width: 480px) {
+    .photo-list {
+        grid-template-columns: repeat(1, 1fr)
+    }
+}
+
+@media (max-width: 799px) and (min-width: 481px) {
+    .photo-list {
+        grid-template-columns: repeat(2, 1fr)
+    }
+}
+
+@media (max-width: 1050px) and (min-width: 800px) {
+    .photo-list {
+        grid-template-columns: repeat(3, 1fr)
+    }
+}
+
+@media (max-width: 1599px) and (min-width: 1051px) {
+    .photo-list {
+        grid-template-columns: repeat(4, 1fr)
+    }
+}
+
+@media (min-width: 1600px) {
+    .photo-list {
+        grid-template-columns: repeat(5, 1fr)
+    }
+}

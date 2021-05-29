@@ -1,0 +1,27 @@
+.author-link{
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    position: relative;
+    color: #000;
+    text-decoration: none;
+    width: 250px;
+    margin: 25px;
+
+}
+
+.author-list{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.author-container{
+    width: 96%;
+    margin: 2%;
+}
+
+.author--title{
+    margin-left: 5%;
+}
