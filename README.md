@@ -9,3 +9,5 @@
 
 
 В качестве источника данных, необходимо использовать сервис https://jsonplaceholder.typicode.com/ (albums, photos, users).
+
+ссылка на проект https://photo-galery-86197.web.app/
