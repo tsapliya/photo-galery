@@ -1,4 +1,4 @@
-.back-to-albums{
+.back-to-albums {
     width: 150px;
     height: 40px;
     line-height: 40px;
@@ -8,7 +8,7 @@
     margin: 10px 50px;
 }
 
-.photo-list{
+.photo-list {
     width: 100%;
     display: inline-grid;
     justify-items: center;
@@ -17,7 +17,7 @@
     align-content: start;
 }
 
-.photo{
+.photo {
     width: 200px;
     height: 230px;
     padding: 5px;
@@ -25,13 +25,13 @@
     text-align: center;
 }
 
-.photo img{
+.photo img {
     width: 150px;
     margin: 0 25px;
     cursor: pointer;
 }
 
-.shadow{
+.shadow {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -44,15 +44,15 @@
     overflow-y: scroll;
 }
 
-.shadow--hide{
+.shadow--hide {
     display: none;
 }
 
-.shadow--show{
+.shadow--show {
     display: block;
 }
 
-.closePopUp{
+.closePopUp {
     color: #fff;
     font-size: 250%;
     position: absolute;
@@ -61,12 +61,12 @@
     cursor: pointer;
 }
 
-.first-part-cross{
+.first-part-cross {
     margin: -1px;
     transform: rotate(-45deg);
 }
 
-.popUp{
+.popUp {
     background: #fff;
     border-radius: 10px;
     width: min-content;
@@ -75,34 +75,35 @@
     position: relative;
 }
 
-.popUp img{
+.popUp img {
     background: #eee;
     width: 100%;
     min-width: 500px;
     min-height: 500px;
 }
 
-.pop-up-info{
+.pop-up-info {
     height: 20px;
     padding: 10px;
 }
 
-.pop-up-info-title{
+.pop-up-info-title {
     width: 95%;
 }
 
-.counter-photo{
+.counter-photo {
     position: absolute;
     bottom: 10px;
     right: 10px;
 }
+
 .nextPhoto,
-.prevPhoto{
+.prevPhoto {
     transition: 0.2s;
     position: absolute;
     top: 0;
     height: 100%;
-    color: rgba(0,0,0,0);
+    color: rgba(0, 0, 0, 0);
     font-size: 200%;
     display: inline-block;
     vertical-align: top;
@@ -117,28 +118,31 @@
 }
 
 .nextPhoto:hover,
-.prevPhoto:hover{
+.prevPhoto:hover {
     color: #fff;
-    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
+
 .nextPhoto::selection,
-.prevPhoto::selection{
+.prevPhoto::selection {
     color: inherit;
     background: inherit;
 }
 
-.nextPhoto{
+.nextPhoto {
     width: 73%;
     right: 0;
     text-align: right;
     padding-right: 2%;
 }
-.prevPhoto{
+
+.prevPhoto {
     width: 33%;
     left: 0;
     text-align: left;
     padding-left: 2%;
 }
+
 @media (max-width: 600px) {
     .photo-list {
         grid-template-columns: repeat(1, 1fr)
@@ -151,16 +155,19 @@
         margin-left: 3%;
         margin-top: 60%;
     }
-    .popUp img{
+
+    .popUp img {
         min-height: inherit;
         min-width: inherit;
     }
-    .photo{
+
+    .photo {
         height: auto;
         width: 94%;
         margin-left: 3%;
     }
-    .photo img{
+
+    .photo img {
         width: 100%;
         margin: 0;
     }

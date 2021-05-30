@@ -18,14 +18,14 @@ export const PhotoList = ({match, location}) => {
     }
 
     useEffect(() => {
-        if (location.state){
+        if (location.state) {
             setPhotoList(location.state.photoList.filter(photo => photo.albumId === albumId))
         } else {
             fetch('https://jsonplaceholder.typicode.com/photos')
                 .then(response => response.json())
                 .then(result => {
                     const findedPhotos = result.filter(photo => photo.albumId === albumId)
-                    if (findedPhotos.length > 0){
+                    if (findedPhotos.length > 0) {
                         setPhotoList(findedPhotos)
                     } else {
                         addErrors('Альбом не существует. ')
@@ -36,9 +36,9 @@ export const PhotoList = ({match, location}) => {
         }
     }, [])
 
-    if (errors.length > 0){
+    if (errors.length > 0) {
         errors.forEach(errMsg => console.error(errMsg))
-        return (errors.map((errMsg, i) => (<Error key={i} errMsg={errMsg} />)))
+        return (errors.map((errMsg, i) => (<Error key={i} errMsg={errMsg}/>)))
     }
 
     const popUpRender = (photoId, e) => {
@@ -46,7 +46,7 @@ export const PhotoList = ({match, location}) => {
         document.querySelector('body').style.position = 'fixed'
         setShadowShow(true)
         setPopUpComponent(
-            <PopUp currentPhoto={photoId} photoList={photoList} />
+            <PopUp currentPhoto={photoId} photoList={photoList}/>
         )
 
     }
@@ -58,24 +58,26 @@ export const PhotoList = ({match, location}) => {
     }
 
 
-    return(
+    return (
         <div>
-            <div onClick={() => popUpClose()} className={shadowShow ? 'shadow shadow--show' : 'shadow shadow--hide' }>
+            <div onClick={() => popUpClose()} className={shadowShow ? 'shadow shadow--show' : 'shadow shadow--hide'}>
                 <div className="closePopUp">x</div>
                 {popUpComponent}
             </div>
             <Link to={'/' + author} className="btn btn--text back-to-albums">🔙 К списку альбомов</Link>
             <div className="photo-list">
-            {
-                photoList.map((photo, id) => {
-                    return (
-                        <div className="photo" key={id}>
-                            <img onClick={() => {popUpRender(id)}} alt={photo.title} src={photo.thumbnailUrl}/>
-                            <div className="photo-title">{photo.title}</div>
-                        </div>
-                    )
-                })
-            }
+                {
+                    photoList.map((photo, id) => {
+                        return (
+                            <div className="photo" key={id}>
+                                <img onClick={() => {
+                                    popUpRender(id)
+                                }} alt={photo.title} src={photo.thumbnailUrl}/>
+                                <div className="photo-title">{photo.title}</div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
