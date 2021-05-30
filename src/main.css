@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
 
 body {
     margin: 0;
@@ -7,12 +8,15 @@ body {
 }
 
 a {
-
     color: inherit;
 }
 
 .main-title {
     margin-left: 50px;
+}
+
+.content{
+    min-height: 100vh;
 }
 
 .notice--wrong {
@@ -47,4 +51,24 @@ a {
 .btn:active {
     background: #eee;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer{
+    width: calc(100vw - 70px);
+    font-family: 'Nunito', sans-serif;
+    height: 200px;
+    background: #888;
+    padding: 15px 35px;
+    transition: 0.2s;
+}
+
+.footer a{
+    margin: 2px 100% 0 0;
+    color: #111;
+    float: left;
+    text-decoration: none;
+}
+
+.footer a:hover{
+    text-decoration: underline;
 }

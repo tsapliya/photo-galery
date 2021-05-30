@@ -8,9 +8,9 @@
     padding: 0 10px;
 }
 
-.albums-info li::marker,
-.album-info li::marker{
-    content: '';
+.albums-info li,
+.album-info li{
+    list-style-type: none;
 }
 
 .album-list {
@@ -40,8 +40,8 @@
 
 .count-photo {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 3px;
+    right: 3px;
 }
 
 
@@ -50,7 +50,7 @@
         grid-template-columns: repeat(1, 1fr)
     }
 
-    .album-info {
+    .albums-info {
         margin: 10px 20px;
         position: inherit;
     }
