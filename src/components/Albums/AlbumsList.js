@@ -80,7 +80,6 @@ export const AlbumsList = ({match, location}) => {
         data.currentAlbumsList = getAlbumListByAuthorId(data.authorId)
         data.currentAlbumsList = getMoreInfo(data.currentAlbumsList)
         data.authorInfo = getAuthorInfo(data.authorId, data.authorInfo)
-        console.log(data)
 
         setContent(template(data))
 
