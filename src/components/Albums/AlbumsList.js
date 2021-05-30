@@ -114,7 +114,7 @@ export const AlbumsList = ({match, location}) => {
         <div className="AlbumContainer">
 
                 <Link className="back-to-authors btn btn--text" to="/" >🔙 К списку авторов</Link>
-                <div className="album-info">
+                <div className="albums-info">
                     {albumInfo.authorName ? (<li>Имя Автора: {albumInfo.authorName}</li>) : ''}
                     {albumInfo.authorPhone ? (<li>Телефон: {albumInfo.authorPhone}</li>) : ''}
                     {albumInfo.authorWebsite
