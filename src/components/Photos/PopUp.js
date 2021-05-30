@@ -6,10 +6,7 @@ export const PopUp = (data) => {
     const isCorrectIdVal = () => {
         return Number(data.currentPhoto) + 1 < data.photoList.length && Number(data.currentPhoto) > 0
     }
-
     const [currentPhoto, setCurrentPhoto] = useState(isCorrectIdVal() ? Number(data.currentPhoto) : 0)
-
-
 
     const nextPhoto = () => {
         if (currentPhoto + 1 >= data.photoList.length){
@@ -20,9 +17,9 @@ export const PopUp = (data) => {
     }
 
     const prevPhoto = () => {
-        console.log(currentPhoto)
-        if (currentPhoto < 0){
-            setCurrentPhoto(data.photoList.length)
+        setCurrentPhoto(data.photoList.length)
+        if (currentPhoto <= 0){
+            setCurrentPhoto(data.photoList.length - 1)
         } else {
             setCurrentPhoto(currentPhoto - 1)
         }
