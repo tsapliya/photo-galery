@@ -19,7 +19,7 @@ export const PhotoList = ({match, location}) => {
 
     useEffect(() => {
         if (location.state) {
-            setPhotoList(location.state.photoList.filter(photo => photo.albumId === albumId))
+            setPhotoList(location.state.photos.filter(photo => photo.albumId === albumId))
         } else {
             fetch('https://jsonplaceholder.typicode.com/photos')
                 .then(response => response.json())

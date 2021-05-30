@@ -1,151 +1,143 @@
-import React, {useEffect, useState} from "react"
+import React, {useState, useEffect} from "react"
 import {Link} from "react-router-dom";
 import "./Album.css"
 import {Error} from "../Error/Error";
+import {Load} from "../Load/Load";
 
 export const AlbumsList = ({match, location}) => {
 
-    const authorUsername = match.params.author
+    const [content, setContent] = useState(<Load/>)
 
-    const [albumsList, setAlbumsList] = useState([])
-    const [photoList, setPhotoList] = useState([])
-    const [errors, setErrors] = useState([])
-    const [albumInfo, setAlbumInfo] = useState({
-        countPhoto: 0,
-        countAlbums: 0,
-        authorName: '',
-        authorPhone: '',
-        authorWebsite: ''
-    })
-    let authorId
-
-    const addErrors = (error) => {
-        setErrors([...errors, error])
+    const data = {
+        users: [],
+        albums: [],
+        photos: [],
+        authorId: null,
+        currentAlbumsList: [],
+        authorInfo: {
+            authorName: match.params.author
+        }
     }
 
-    const addAlbumInfo = (change = {}) => {
-        setAlbumInfo({...albumInfo, ...change})
-    }
-
-    const setAuthorIdByUsername = (username) => {
-        try {
-        fetch('https://jsonplaceholder.typicode.com/users')
+    const loadAllData = async () => {
+        await fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
-            .then(result => {
-                const currentAuthor = result.find(author => author.username === username)
-                if (currentAuthor === undefined){
-                    addErrors('Некорректный url. ')
-                    return false
-                }
-                authorId = currentAuthor.id
-
-                addAlbumInfo({
-                    authorName: currentAuthor.name,
-                    authorPhone: currentAuthor.phone,
-                    authorWebsite: currentAuthor.website
-                })
-            })
-        } catch (err){
-            addErrors(err)
-        }
+            .then(result => data.users = result)
+        await fetch('https://jsonplaceholder.typicode.com/albums')
+            .then(response => response.json())
+            .then(result => data.albums = result)
+        await fetch('https://jsonplaceholder.typicode.com/photos')
+            .then(response => response.json())
+            .then(result => data.photos = result)
+        main()
     }
 
-    useEffect(() => {
-        if (location.state !== undefined && location.state.id){
-            authorId = location.state.id
-            addAlbumInfo({
-                authorName: location.state.name,
-                authorPhone: location.state.phone,
-                authorWebsite: location.state.website
-            })
+    function isCurrectAuthorName() {
+        return data.users.find(user => user.username === data.authorInfo.authorName) !== undefined
+    }
+
+    function getAuthorId() {
+        if (location.state !== undefined && location.state.id) {
+            return location.state.id
         } else {
-            setAuthorIdByUsername(authorUsername)
+            return data.users.find(user => user.username === data.authorInfo.authorName).id
         }
-    }, [])
-
-    useEffect(() => {
-        try {
-            fetch('https://jsonplaceholder.typicode.com/albums')
-                .then(response => response.json())
-                .then(result => setAlbumsList(result.filter(album => album.userId === authorId)))
-        } catch (err) {
-            addErrors(err)
-        }
-    }, [])
-
-    useEffect(() => {
-            try {
-                fetch('https://jsonplaceholder.typicode.com/photos')
-                    .then(response => response.json())
-                    .then(result => {
-                        const albumsCurrentAuthorListId = albumsList.map(album => album.id)
-                        const photoCurrentAuthorList = result.filter(photo =>
-                            albumsCurrentAuthorListId.indexOf(photo.albumId) >= 0
-                        )
-                        setPhotoList(photoCurrentAuthorList)
-                        addAlbumInfo({
-                            countPhoto: photoCurrentAuthorList.length,
-                            countAlbums: albumsCurrentAuthorListId.length
-                        })
-                    })
-            } catch (err) {
-                addErrors(err)
-            }
-
-    }, [albumsList])
-
-    useEffect(() => {
-        if (photoList.length > 0 && albumsList.length > 0){
-
-            albumsList.forEach(album => {
-                const photoCurrentAlbumList = photoList.filter(photo => album.id === photo.albumId)
-                album.countPhoto = photoCurrentAlbumList.length
-                album.photoPreview = photoCurrentAlbumList[0].thumbnailUrl
-
-            })
-        }
-    }, [photoList, albumsList])
-
-    if (errors.length > 0){
-       errors.forEach(errMsg => console.error(errMsg))
-       return (errors.map((errMsg, i) => (<Error key={i} errMsg={errMsg} />)))
     }
-    return(
-        <div className="AlbumContainer">
 
-                <Link className="back-to-authors btn btn--text" to="/" >🔙 К списку авторов</Link>
+    function getAlbumListByAuthorId(authorId) {
+        return data.albums.filter(album => album.userId === authorId)
+    }
+
+    function getMoreInfo(albumsList) {
+        albumsList.forEach(album => {
+            const photoCurrentAlbumList = data.photos.filter(photo => album.id === photo.albumId)
+            album.countPhoto = photoCurrentAlbumList.length
+            album.photoPreview = photoCurrentAlbumList[0].thumbnailUrl
+        })
+        return albumsList
+    }
+
+    function getAuthorInfo(authorId, authorInfo = {}) {
+
+        const author = data.users.find(user => user.id === authorId)
+        const currentAlbumsId = data.currentAlbumsList.map(album => album.id)
+        const info = {
+            countPhotoTotal: data.photos.filter(photo => currentAlbumsId.indexOf(photo.albumId) >= 0).length,
+            countAlbums: data.currentAlbumsList.length,
+            authorPhone: author.phone,
+            authorWebsite: author.website
+        }
+        return {...authorInfo, ...info}
+    }
+
+    function main() {
+        if (!isCurrectAuthorName()) {
+            setContent(<Error errMsg="Некорректный url. "/>)
+            return false
+        }
+
+        data.authorId = getAuthorId()
+        data.currentAlbumsList = getAlbumListByAuthorId(data.authorId)
+        data.currentAlbumsList = getMoreInfo(data.currentAlbumsList)
+        data.authorInfo = getAuthorInfo(data.authorId, data.authorInfo)
+        console.log(data)
+
+        setContent(template(data))
+
+    }
+
+    function ct(val) {
+        if (val) {
+            return val
+        } else return ''
+    }
+
+    useEffect(() => {
+        loadAllData()
+    }, [])
+
+
+    function template({currentAlbumsList, authorInfo, photos}) {
+        return (
+            <div className="AlbumContainer">
+                <Link className="back-to-authors btn btn--text" to="/">🔙 К списку авторов</Link>
                 <div className="albums-info">
-                    {albumInfo.authorName ? (<li>Имя Автора: {albumInfo.authorName}</li>) : ''}
-                    {albumInfo.authorPhone ? (<li>Телефон: {albumInfo.authorPhone}</li>) : ''}
-                    {albumInfo.authorWebsite
-                        ? (<li>Сайт: <a href={'http://' + albumInfo.authorWebsite}>{albumInfo.authorWebsite}</a> </li>)
+                    <li>Имя Автора: {ct(authorInfo.authorName)}</li>
+                    <li>Телефон: {ct(authorInfo.authorPhone)}</li>
+                    {authorInfo.authorWebsite
+                        ? (<li>Сайт: <a href={'http://' + authorInfo.authorWebsite}>{authorInfo.authorWebsite}</a></li>)
                         : ''}
-                    {albumInfo.countAlbums ? (<li>Количество альбомов: {albumInfo.countAlbums}</li>) : ''}
-                    {albumInfo.countPhoto ? (<li>Общее число фотографий: {albumInfo.countPhoto}</li>) : ''}
+                    <li>Количество альбомов: {ct(authorInfo.countAlbums)}</li>
+                    <li>Общее число фотографий: {ct(authorInfo.countPhotoTotal)}</li>
                 </div>
 
-            <div className="album-list">
-                {
-                    albumsList.map(album => {
-                        return(
-                            <Link key={album.id}
-                                  className="album btn "
-                                  to={{
-                                      pathname: match.url.substr(-1) === '/'
-                                        ? match.url + album.id
-                                        : match.url + '/' + album.id,
-                                      state: {photoList}
-                                  }}>
-                                <img alt={album.title} src={album.photoPreview}/>
-                                <div className="album-info">
-                                    <li> {album.title}</li>
-                                    <div className="count-photo"> ({album.countPhoto})</div>
-                                </div>
-                            </Link>
-                        )
-                    })
-                }
+                <div className="album-list">
+                    {
+                        currentAlbumsList.map(album => {
+                            return (
+                                <Link key={album.id}
+                                      className="album btn "
+                                      to={{
+                                          pathname: match.url.substr(-1) === '/'
+                                              ? match.url + album.id
+                                              : match.url + '/' + album.id,
+                                          state: {photos}
+                                      }}>
+                                    <img alt={album.title} src={album.photoPreview}/>
+                                    <div className="album-info">
+                                        <li> {album.title}</li>
+                                        <div className="count-photo"> ({album.countPhoto})</div>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+
+    return (<div>
+        {content}
+    </div>)
 }
