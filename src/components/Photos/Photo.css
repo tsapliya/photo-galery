@@ -41,6 +41,7 @@
     top: 0;
     left: 0;
     cursor: pointer;
+    overflow-y: scroll;
 }
 
 .shadow--hide{
@@ -66,45 +67,155 @@
 }
 
 .popUp{
-
-    height: 80%;
     background: #fff;
     border-radius: 10px;
-width: min-content;
-    top: 10%;
-    margin: 0 auto;
+    width: min-content;
+    margin: 50px auto;
     overflow: hidden;
+    position: relative;
 }
 
 .popUp img{
     background: #eee;
+    width: 100%;
+    min-width: 500px;
+    min-height: 500px;
 }
-@media (max-width: 480px) {
+
+.pop-up-info{
+    height: 20px;
+    padding: 10px;
+}
+
+.pop-up-info-title{
+    width: 95%;
+}
+
+.counter-photo{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.nextPhoto,
+.prevPhoto{
+    transition: 0.2s;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    color: rgba(0,0,0,0);
+    font-size: 200%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.nextPhoto:after,
+.prevPhoto:after {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.nextPhoto:hover,
+.prevPhoto:hover{
+    color: #fff;
+    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+.nextPhoto::selection,
+.prevPhoto::selection{
+    color: inherit;
+    background: inherit;
+}
+
+.nextPhoto{
+    width: 73%;
+    right: 0;
+    text-align: right;
+    padding-right: 2%;
+}
+.prevPhoto{
+    width: 33%;
+    left: 0;
+    text-align: left;
+    padding-left: 2%;
+}
+@media (max-width: 600px) {
     .photo-list {
         grid-template-columns: repeat(1, 1fr)
     }
 }
 
-@media (max-width: 799px) and (min-width: 481px) {
+@media (max-width: 600px) {
+    .popUp {
+        width: 94%;
+        margin-left: 3%;
+        margin-top: 60%;
+    }
+    .popUp img{
+        min-height: inherit;
+        min-width: inherit;
+    }
+    .photo{
+        height: auto;
+        width: 94%;
+        margin-left: 3%;
+    }
+    .photo img{
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 680px) and (min-width: 601px) {
     .photo-list {
         grid-template-columns: repeat(2, 1fr)
     }
 }
 
-@media (max-width: 1050px) and (min-width: 800px) {
+@media (max-width: 900px) and (min-width: 681px) {
     .photo-list {
         grid-template-columns: repeat(3, 1fr)
     }
 }
 
-@media (max-width: 1599px) and (min-width: 1051px) {
+@media (max-width: 1200px) and (min-width: 901px) {
     .photo-list {
         grid-template-columns: repeat(4, 1fr)
     }
 }
 
-@media (min-width: 1600px) {
+@media (max-width: 1366px) and (min-width: 1201px) {
     .photo-list {
         grid-template-columns: repeat(5, 1fr)
+    }
+}
+
+@media (max-width: 1600px) and (min-width: 1367px) {
+    .photo-list {
+        grid-template-columns: repeat(6, 1fr)
+    }
+}
+
+@media (max-width: 2000px) and (min-width: 1601px) {
+    .photo-list {
+        grid-template-columns: repeat(7, 1fr)
+    }
+}
+
+@media (max-width: 2200px) and (min-width: 2001px) {
+    .photo-list {
+        grid-template-columns: repeat(8, 1fr)
+    }
+}
+
+@media (max-width: 2400px) and (min-width: 2201px) {
+    .photo-list {
+        grid-template-columns: repeat(9, 1fr)
+    }
+}
+
+@media (min-width: 2401px) {
+    .photo-list {
+        grid-template-columns: repeat(10, 1fr)
     }
 }

@@ -139,7 +139,7 @@ export const AlbumsList = ({match, location}) => {
                                 <img alt={album.title} src={album.photoPreview}/>
                                 <div className="album-info">
                                     <li> {album.title}</li>
-                                    <li> Количество фото {album.countPhoto}</li>
+                                    <div className="count-photo"> ({album.countPhoto})</div>
                                 </div>
                             </Link>
                         )

@@ -24,16 +24,17 @@
 .album{
     border-radius: 5px;
     border: 1px solid #eee;
-    width: 200px;
+    width: 180px;
     margin: 10px;
-    padding: 5px;
+    padding: 10px;
     text-decoration: none;
     height: 250px;
+    position: relative;
 }
 
 .album img{
     width: 150px;
-    margin: 0 25px;
+    margin: 0 15px;
 }
 
 .album-info li::marker{
@@ -42,6 +43,12 @@
 
 .album-info{
 
+}
+
+.count-photo{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 

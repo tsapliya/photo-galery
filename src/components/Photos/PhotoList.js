@@ -43,6 +43,7 @@ export const PhotoList = ({match, location}) => {
 
     const popUpRender = (photoId, e) => {
 
+        document.querySelector('body').style.position = 'fixed'
         setShadowShow(true)
         setPopUpComponent(
             <PopUp currentPhoto={photoId} photoList={photoList} />
@@ -51,6 +52,7 @@ export const PhotoList = ({match, location}) => {
     }
 
     const popUpClose = () => {
+        document.querySelector('body').style.position = 'inherit'
         setShadowShow(false)
         setPopUpComponent()
     }
