@@ -54,7 +54,7 @@ a {
 }
 
 .footer{
-    width: calc(100vw - 70px);
+    width: auto;
     font-family: 'Nunito', sans-serif;
     height: 200px;
     background: #888;
